@@ -24,10 +24,10 @@ vi.write(cmd)
 
 vi.write_termination = '\n' #the next commands should not be terminated with chars
     
-cmd = "C1:wvdt m36,wvnm,paul,type,5,length,32KB,freq,1000,ampl,2,ofst,0,phase,0,wavedata,"
+cmd = "C1:wvdt m56,wvnm,paul,type,5,length,32KB,freq,1000,ampl,2,ofst,0,phase,0,wavedata,"
 vi.write(cmd)
 
-resp = vi.query("C1:wvdt m36?")#Note, the return value shows mXX+6, so m36 => M42
+resp = vi.query("C1:wvdt m56?")#Note, the return value shows mXX+6, so m36 => M42
 
 print("returned....")
 print(len(resp))
