@@ -15,19 +15,18 @@ print(vi.query("*idn?"))
 wave = bytearray()
 
 for i in range(16384):
-    wave.append(i&0xff00>>8)
     wave.append(i&0xff)
+    wave.append((i&0x3f00)>>8)
     
-vi.write_termination = ''
-cmd = wave.decode('latin-1') #Change to a string from the byte array
-vi.write(cmd)
-
-vi.write_termination = '\n' #the next commands should not be terminated with chars
+vi.write_termination = '' #the next commands should not be terminated with newline chars
+vi.write(wave.decode('latin-1'))
+print(2)
+vi.write_termination = '\n' #the next commands should be terminated with newline char
     
-cmd = "C1:wvdt m56,wvnm,paul,type,5,length,32KB,freq,1000,ampl,2,ofst,0,phase,0,wavedata,"
+cmd = "C1:wvdt m56,wvnm,chompipe,type,5,length,32KB,freq,1000,ampl,2,ofst,0,phase,0,wavedata,"
 vi.write(cmd)
-
-resp = vi.query("C1:wvdt m56?")#Note, the return value shows mXX+6, so m36 => M42
+print(3)
+resp = vi.query("C1:wvdt? m56")#Note, the return value shows mXX+6, so m36 => M42
 
 print("returned....")
 print(len(resp))
